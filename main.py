@@ -12,7 +12,7 @@ def get_num_pages():
         page = 1
         while page <= num_pag:
                 pages = []
-                url = f'https://httpbin.org/status/404'
+                url = f'https://www.toyshow.com.br/loja/catalogo.php?loja=460977&categoria=25&pg={page}'
                 logging.info(f'Iniciando a página {page}')
                 scrap = Scrap()
                 merged_df = scrap.merge_scrapes(url)

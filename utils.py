@@ -1,9 +1,7 @@
 import requests
 from bs4 import BeautifulSoup as bs
 import pandas as pd
-from requests.exceptions import HTTPError
 import logging
-import os
 import sys
 
 class Scrap:
@@ -21,14 +19,11 @@ class Scrap:
             response.raise_for_status()
             return bs(response.content, features="lxml")
         except requests.exceptions.HTTPError as http_err:
-            logging.error(f"HTTP error occurred: {http_err}")
             raise sys.exit(logging.error(f"HTTP error occurred: {http_err}"))
         except requests.exceptions.RequestException as err:
-            logging.error(f"Request error occurred: {err}")
-            raise sys.exit(1)
+            raise sys.exit(logging.error(f"Request error occurred: {err}"))
         except Exception as err:
-            logging.error(f"Unexpected error occurred: {err}")
-            raise sys.exit(1)
+            raise sys.exit(logging.error(f"Unexpected error occurred: {err}"))
 
 
     def scrape_names(self, url):
