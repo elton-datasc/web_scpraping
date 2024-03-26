@@ -16,3 +16,5 @@ params = {
 }
 
 response = requests.get('https://www.toyshow.com.br/loja/catalogo.php', params=params, headers=headers)
+
+print(params)
