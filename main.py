@@ -18,9 +18,9 @@ def get_num_pages():
                 merged_df = scrap.merge_scrapes(url)
                 merged_df.to_csv(f'produtos_funko/produtos_pag_{page}.csv', index=False, header=False, sep=';')
                 logging.info(f'Finalizando a página {page}')
-                page += 1
                 pages.append(page)
-        logging.info(f'Extração de {len(pages)} página(s) feita(s) com sucesso!')
+                page += 1
+        logging.info(f'Extração de {pages[0]} página(s) feita(s) com sucesso!')
         end = time.time()
         logging.info(f'Tempo de execução: {end - start} segundos')
 
