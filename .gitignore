@@ -1,6 +1,13 @@
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
 
+/__pycache__
 # ignore esta pasta
 produtos_funko
 
 # ignore todos os arquivos .txt
+*.log
 *.txt
+logs.txt
+logs

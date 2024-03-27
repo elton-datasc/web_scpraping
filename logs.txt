@@ -1,2 +1,6 @@
-INFO:2024-03-25 22:17:22,063:Iniciando a página 1
-ERROR:2024-03-25 22:17:22,871:HTTP error occurred: 404 Client Error: NOT FOUND for url: https://httpbin.org/status/404
+INFO:2024-03-26 22:18:30,536:Iniciando a página 1
+INFO:2024-03-26 22:18:33,566:Finalizando a página 1
+INFO:2024-03-26 22:18:33,567:Iniciando a página 2
+INFO:2024-03-26 22:18:35,198:Finalizando a página 2
+INFO:2024-03-26 22:18:35,198:Extração de 1 página(s) feita(s) com sucesso!
+INFO:2024-03-26 22:18:35,199:Tempo de execução: 6.866038084030151 segundos
