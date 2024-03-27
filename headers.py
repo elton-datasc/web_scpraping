@@ -23,14 +23,21 @@ def get_params():
         'loja': '460977',
         'categoria': categoria,
         'pg': pg }
+    
     return params
 
-#print(get_header())
 
-#print(get_params())
+def get_info():
+    for _i in range(1):
+        l=[i for i in get_params().values()]
+        categoria = l[1]
+        pagina = l[2]
+        return [categoria , pagina]
+    
+print(get_info())
 
-#print(categoria, pagina)
+'''print(get_params()['categoria'])
+print(get_params()['pg'])'''
+'''response = requests.get('https://www.toyshow.com.br/loja/catalogo.php', params=get_params(), headers=get_header(), timeout= 5)
 
-response = requests.get('https://www.toyshow.com.br/loja/catalogo.php', params=get_params(), headers=get_header(), timeout= 5)
-
-logging.info(response)
+logging.info(response)'''
