@@ -4,6 +4,34 @@ import pandas as pd
 import logging
 import sys
 
+def get_header():
+
+    headers = {
+        'Referer': 'https://www.toyshow.com.br/loja/catalogo.php?loja=460977&categoria=25&pg=1',
+        'Upgrade-Insecure-Requests': '1',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+    }
+    return headers
+
+def get_params():
+
+    params = {
+        'loja': '460977',
+        'categoria': 25,
+        'pg': 1 }
+    
+    return params
+
+def get_info():
+    for _i in range(1):
+        l = [i for i in get_params().values()]
+        categoria = l[1]
+        pagina = l[2]
+        return [categoria, pagina]
+
 class Scrap:
     def __init__(self):
         self.session = requests.Session()
@@ -15,9 +43,9 @@ class Scrap:
 
     def get_page(self, url):
         try:
-            response = self.session.get(url)
+            response = self.session.get(url,headers=get_header(), params=get_params(), timeout=5)
             response.raise_for_status()
-            return bs(response.content, features="lxml")
+            return bs(response.content, 'html.parser')
         except requests.exceptions.HTTPError as http_err:
             raise sys.exit(logging.error(f"HTTP error occurred: {http_err}"))
         except requests.exceptions.RequestException as err:

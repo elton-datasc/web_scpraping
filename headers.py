@@ -26,18 +26,15 @@ def get_params():
     
     return params
 
-
 def get_info():
     for _i in range(1):
-        l=[i for i in get_params().values()]
+        l = [i for i in get_params().values()]
         categoria = l[1]
         pagina = l[2]
-        return [categoria , pagina]
+        return [categoria, pagina]
     
-print(get_info())
+#print(get_info())
 
-'''print(get_params()['categoria'])
-print(get_params()['pg'])'''
-'''response = requests.get('https://www.toyshow.com.br/loja/catalogo.php', params=get_params(), headers=get_header(), timeout= 5)
+response = requests.get('https://www.toyshow.com.br/loja/catalogo.php', params=get_params(), headers=get_header(), timeout= 5)
 
-logging.info(response)'''
+logging.info(response)

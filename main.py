@@ -1,4 +1,4 @@
-from utils import Scrap
+from utils import Scrap, get_info
 from time import sleep
 from pathlib import Path
 from handler import logging
@@ -9,7 +9,7 @@ def get_num_pages():
         num_pag = int(input('Qtde de páginas da extração: '))
         dir_path = Path("produtos_funko")
         dir_path.mkdir(exist_ok=True)
-        page = 1
+        page =1
         while page <= num_pag:
                 pages = []
                 url = f'https://www.toyshow.com.br/loja/catalogo.php?loja=460977&categoria=25&pg={page}'
