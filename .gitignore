@@ -1,0 +1,6 @@
+
+# ignore esta pasta
+produtos_funko
+
+# ignore todos os arquivos .txt
+*.txt
