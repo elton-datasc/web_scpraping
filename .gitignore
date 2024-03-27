@@ -9,7 +9,7 @@ produtos_funko
 # ignore todos os arquivos .txt
 *.log
 *.txt
-logs.txt
+.logs.txt
 logs
 
 # These are some examples of commonly ignored file patterns.
