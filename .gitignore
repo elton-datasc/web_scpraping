@@ -5,9 +5,16 @@ pip-delete-this-directory.txt
 __pycache__
 # ignore esta pasta
 produtos_funko
+produtos_colecionáveis
+produtos_presentes
+produtos_camisetas
+produtos_almofadas
+produtos_canecas
+produtos_luminárias
 
 # ignore todos os arquivos .txt
 *.log
 *.txt
 .logs.txt
 logs
+testes.py

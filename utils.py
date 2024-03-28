@@ -5,9 +5,9 @@ import logging
 import sys
 
 def get_header():
-
+    # cURL do bash
     headers = {
-        'Referer': 'https://www.toyshow.com.br/loja/catalogo.php?loja=460977&categoria=25&pg=1',
+        'Referer': 'https://www.toyshow.com.br/',
         'Upgrade-Insecure-Requests': '1',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
         'sec-ch-ua': '"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
@@ -16,14 +16,14 @@ def get_header():
     }
     return headers
 
-def get_params():
+'''def get_params():
 
     params = {
         'loja': '460977',
         'categoria': 25,
         'pg': 1 }
     
-    return params
+    return params'''
 
 def get_info():
     for _i in range(1):
@@ -43,7 +43,7 @@ class Scrap:
 
     def get_page(self, url):
         try:
-            response = self.session.get(url,headers=get_header(), params=get_params(), timeout=5)
+            response = self.session.get(url,headers=get_header(), timeout=5)
             response.raise_for_status()
             return bs(response.content, 'html.parser')
         except requests.exceptions.HTTPError as http_err:
