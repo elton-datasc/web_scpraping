@@ -3,14 +3,8 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 __pycache__
-# ignore esta pasta
-produtos_funko
-produtos_colecionáveis
-produtos_presentes
-produtos_camisetas
-produtos_almofadas
-produtos_canecas
-produtos_luminárias
+# ignore a pasta que começa c a palavra "produtos"
+produtos*/
 
 # ignore todos os arquivos .txt
 *.log
