@@ -3,6 +3,18 @@ from bs4 import BeautifulSoup as bs
 import pandas as pd
 import logging
 import sys
+from logging.config import fileConfig
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+sys.path.append(os.environ['APP_PATH'])
+
+
+fileConfig(f"{os.environ['APP_PATH']}/logging_config.ini")
+logger = logging.getLogger()
+
 
 def get_header():
     # cURL do bash
@@ -16,26 +28,10 @@ def get_header():
     }
     return headers
 
-'''def get_params():
-
-    params = {
-        'loja': '460977',
-        'categoria': 25,
-        'pg': 1 }
-    
-    return params'''
-
-def get_info():
-    for _i in range(1):
-        l = [i for i in get_params().values()]
-        categoria = l[1]
-        pagina = l[2]
-        return [categoria, pagina]
-
 class Scrap:
     def __init__(self):
         self.session = requests.Session()
-        logging.basicConfig(level=logging.INFO)
+        #logging.basicConfig(level=logging.INFO)
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns', None)
         pd.set_option('display.width', None)
@@ -85,3 +81,5 @@ class Scrap:
     
 
 
+
+# %%

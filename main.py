@@ -1,14 +1,24 @@
-from utils import Scrap, get_info
-from time import sleep
+from utils import Scrap
 from pathlib import Path
-from handler import logging
+from logging.config import fileConfig
 import time
+from dotenv import load_dotenv
+import logging
+import os
+import sys
+
+load_dotenv()
+
+sys.path.append(os.environ['APP_PATH'])
+
+fileConfig(f"{os.environ['APP_PATH']}/logging_config.ini")
+logger = logging.getLogger()
 
 def get_num_pages():
         #verificar separar as ações em mais funções
         #cabe um try na parte do nome
         start = time.time()
-        categoria = int(input('Escolha categoria para a extração :\n 25 - funko pop\n 23 - presentes criativos \n 33 - colecionáveis\n 133 - camisetas , 171 - almofadas \n 159 - canecas criativas, 161 - luminárias :'))
+        categoria = int(input('Escolha categoria para a extração :\n  \n 25 - funko pop\n 23 - presentes criativos \n 33 - colecionáveis\n 133 - camisetas \n 171 - almofadas \n 159 - canecas criativas\n 161 - luminárias \n  \nCategoria :'))
         num_pag = int(input('Qtde de páginas da extração: '))
         nome_categoria = {25:'funko', 23:'presentes',33: 'colecionáveis', 133: 'camisetas', 171: 'almofadas', 159: 'canecas', 161:'luminárias'}
         nome = None
@@ -24,16 +34,16 @@ def get_num_pages():
         while page <= num_pag:
                 pages = []
                 url = f'https://www.toyshow.com.br/loja/catalogo.php?loja=460977&categoria={categoria}&pg={page}'
-                logging.info(f'Iniciando a página {page}')
+                logger.info(f'Iniciando a página {page}')
                 scrap = Scrap()
                 merged_df = scrap.merge_scrapes(url)
                 merged_df.to_csv(f'produtos_{nome}/produtos_pag_{page}.csv', index=False, header=False, sep=';')
-                logging.info(f'Finalizando a página {page}')
+                logger.info(f'Finalizando a página {page}')
                 pages.append(page)
                 page += 1
-        logging.info(f'Extração de {pages[0]} página(s) feita(s) com sucesso!')
+        logger.info(f'Extração de {pages[0]} página(s) feita(s) com sucesso!')
         end = time.time()
-        logging.info(f'Tempo de execução: {end - start} segundos')
+        logger.info(f'Tempo de execução: {end - start} segundos')
 
 
 if __name__ == "__main__":
