@@ -28,6 +28,13 @@ def get_header():
     }
     return headers
 
+def num_total_pages(categoria):
+    html = requests.get(f'https://www.toyshow.com.br/loja/catalogo.php?loja=460977&categoria={categoria}')
+    #soup = bs(html.content,features="lxml")
+    soup = bs(html.content, 'html.parser')
+    total_pages = soup.find('span',{'class':'page-last'}).find('a').get('href')[-2:]
+    return total_pages
+
 class Scrap:
     def __init__(self):
         self.session = requests.Session()
@@ -48,8 +55,7 @@ class Scrap:
             raise sys.exit(logging.error(f"Request error occurred: {err}"))
         except Exception as err:
             raise sys.exit(logging.error(f"Unexpected error occurred: {err}"))
-
-
+    
     def scrape_names(self, url):
         soup = self.get_page(url)
         if soup:

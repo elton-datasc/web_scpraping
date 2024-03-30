@@ -1,4 +1,4 @@
-from utils import Scrap
+from utils import Scrap, num_total_pages
 from pathlib import Path
 from logging.config import fileConfig
 import time
@@ -15,11 +15,13 @@ fileConfig(f"{os.environ['APP_PATH']}/logging_config.ini")
 logger = logging.getLogger()
 
 def get_num_pages():
+        scrap = Scrap()
         #verificar separar as ações em mais funções
         #cabe um try na parte do nome
         start = time.time()
         categoria = int(input('Escolha categoria para a extração  :\n  \n 025 - funko pop\n 023 - presentes criativos \n 033 - colecionáveis\n 133 - camisetas \n 171 - almofadas \n 159 - canecas criativas\n 161 - luminárias \n  \nCategoria :'))
-        num_pag = int(input('Qtde de páginas da extração: '))
+        total_pages = num_total_pages(categoria)
+        num_pag = int(input(f'A categoria {categoria} possui {total_pages} páginas.\nQuantas páginas farão parte da extração? '))
         nome_categoria = {25:'funko', 23:'presentes',33: 'colecionáveis', 133: 'camisetas', 171: 'almofadas', 159: 'canecas', 161:'luminárias'}
         nome = None
         if categoria in nome_categoria.keys():
@@ -35,7 +37,6 @@ def get_num_pages():
                 pages = []
                 url = f'https://www.toyshow.com.br/loja/catalogo.php?loja=460977&categoria={categoria}&pg={page}'
                 logger.info(f'Iniciando a página {page}')
-                scrap = Scrap()
                 merged_df = scrap.merge_scrapes(url)
                 merged_df.to_csv(f'produtos_{nome}/produtos_pag_{page}.csv', index=False, header=False, sep=';')
                 logger.info(f'Finalizando a página {page}')
