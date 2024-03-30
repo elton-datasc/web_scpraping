@@ -5,6 +5,7 @@ pip-delete-this-directory.txt
 __pycache__
 # ignore a pasta que começa c a palavra "produtos"
 produtos*/
+#ununsedfiles*/
 
 # ignore todos os arquivos .txt
 *.log
