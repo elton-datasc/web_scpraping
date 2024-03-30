@@ -29,10 +29,13 @@ def get_header():
     return headers
 
 def num_total_pages(categoria):
-    html = requests.get(f'https://www.toyshow.com.br/loja/catalogo.php?loja=460977&categoria={categoria}')
-    #soup = bs(html.content,features="lxml")
-    soup = bs(html.content, 'html.parser')
-    total_pages = soup.find('span',{'class':'page-last'}).find('a').get('href')[-2:]
+    try:
+        html = requests.get(f'https://www.toyshow.com.br/loja/catalogo.php?loja=460977&categoria={categoria}')
+        #soup = bs(html.content,features="lxml")
+        soup = bs(html.content, 'html.parser')
+        total_pages = soup.find('span',{'class':'page-last'}).find('a').get('href')[-2:]
+    except ValueError as err:
+            raise sys.exit(logging.error(f"Unexpected error occurred: {err}"))
     return total_pages
 
 class Scrap:
