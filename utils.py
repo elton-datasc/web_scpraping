@@ -1,20 +1,20 @@
 import requests
 from bs4 import BeautifulSoup as bs
+from pathlib import Path
 import pandas as pd
 import logging
 import sys
 from logging.config import fileConfig
 import os
 from dotenv import load_dotenv
+import time
 
 load_dotenv()
 
 sys.path.append(os.environ['APP_PATH'])
 
-
 fileConfig(f"{os.environ['APP_PATH']}/logging_config.ini")
 logger = logging.getLogger()
-
 
 def get_header():
     # cURL do bash
@@ -86,9 +86,39 @@ class Scrap:
     def merge_scrapes(self, url):
         dfs = [self.scrape_names(url), self.scrape_prices(url), self.scrape_promo_prices(url), self.scrape_spot_price(url)]
         return pd.concat(dfs, axis=1)
-    
-    
+class Data:   
+    def get_user_input():
+        start = time.time()
+        nome_categoria = {25:'funko', 23:'presentes',33: 'colecionáveis', 133: 'camisetas', 171: 'almofadas', 159: 'canecas', 161:'luminárias'}
+        categoria = int(input('Escolha categoria para a extração :\n \n 025 - funko pop\n 023 - presentes criativos \n 033 - colecionáveis\n 133 - camisetas \n 171 - almofadas \n 159 - canecas criativas\n 161 - luminárias \n \nCategoria :'))
+        if categoria in nome_categoria.keys():
+            nome = nome_categoria[categoria]
+        else:
+            raise sys.exit(logging.error(f"Insira uma categoria válida!'"))
+        total_pages = num_total_pages(categoria)
+        num_pag = int(input(f'A categoria {categoria} possui {total_pages} páginas.\nQuantas páginas farão parte da extração? '))
+        nome = nome_categoria.get(categoria)
+        if nome is None:
+            logging.error('Insira uma categoria válida!')
+            print(nome_categoria.keys())
+            return None, None
+        return nome, num_pag, start
 
+    def create_output_directory(nome):
+        dir_path = Path(f"produtos_{nome}")
+        dir_path.mkdir(exist_ok=True)
 
+    def extract_data(nome, num_pag):
+        scrap = Scrap()
+        page = 1
+        while page <= num_pag:
+            url = f'https://www.toyshow.com.br/loja/catalogo.php?loja=460977&categoria={nome}&pg={page}'
+            logger.info(f'Iniciando a página {page}')
+            merged_df = scrap.merge_scrapes(url)
+            merged_df.to_csv(f'produtos_{nome}/produtos_pag_{page}.csv', index=False, header=False, sep=';')
+            logger.info(f'Finalizando a página {page}')
+            page += 1
 
-# %%
+    def log_execution_time(start):
+        end = time.time()
+        logger.info(f'Tempo de execução: {end - start} segundos')
