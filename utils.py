@@ -8,6 +8,7 @@ from logging.config import fileConfig
 import os
 from dotenv import load_dotenv
 import time
+import subprocess
 
 load_dotenv()
 
@@ -122,3 +123,11 @@ class Data:
     def log_execution_time(start):
         end = time.time()
         logger.info(f'Tempo de execução: {end - start} segundos')
+
+
+    def file_size(nome):
+        folder_path = f'C:/Users/Acer/OneDrive/Área de Trabalho/web_scrap_livro\produtos_{nome}'
+        command = f'powershell -command "Get-ChildItem -Path \'{folder_path}\' -Recurse -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum | Select-Object -ExpandProperty Sum"'
+        result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, text=True)
+        size_in_bytes = int(result.stdout.strip())
+        logger.info(f"Tamanho da pasta \produtos_funko: {size_in_bytes/1024:5.2f} MB")
