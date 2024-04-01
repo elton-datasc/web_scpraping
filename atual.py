@@ -36,3 +36,4 @@ result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, text=True)
 # Agora, o resultado deve conter apenas o valor numérico, então podemos convertê-lo diretamente para int
 size_in_bytes = int(result.stdout.strip())
 print(f"Tamanho da pasta \produtos_funko: {size_in_bytes/1024:5.2f} MB")
+print(folder_path)

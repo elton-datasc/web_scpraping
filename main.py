@@ -8,7 +8,6 @@ if __name__ == "__main__":
             Data.create_output_directory(nome)
             Data.extract_data(nome, num_pag)
             Data.log_execution_time(start)
-            Data.file_size(nome)
     except ValueError as err:
         logging.error(f'Digite uma categoria válida: {err}')
 

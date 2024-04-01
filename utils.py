@@ -90,7 +90,7 @@ class Scrap:
 class Data:   
     def get_user_input():
         start = time.time()
-        nome_categoria = {25:'funko', 23:'presentes',33: 'colecionáveis', 133: 'camisetas', 171: 'almofadas', 159: 'canecas', 161:'luminárias'}
+        nome_categoria = {25:'funko', 23:'presentes',33: 'colecionáveis', 133: 'camisetas', 171: 'almofadas', 159: 'canecas', 161: 'luminárias'}
         categoria = int(input('Escolha categoria para a extração :\n \n 025 - funko pop\n 023 - presentes criativos \n 033 - colecionáveis\n 133 - camisetas \n 171 - almofadas \n 159 - canecas criativas\n 161 - luminárias \n \nCategoria :'))
         if categoria in nome_categoria.keys():
             nome = nome_categoria[categoria]
@@ -123,11 +123,3 @@ class Data:
     def log_execution_time(start):
         end = time.time()
         logger.info(f'Tempo de execução: {end - start} segundos')
-
-
-    def file_size(nome):
-        folder_path = f'C:/Users/Acer/OneDrive/Área de Trabalho/web_scrap_livro\produtos_{nome}'
-        command = f'powershell -command "Get-ChildItem -Path \'{folder_path}\' -Recurse -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum | Select-Object -ExpandProperty Sum"'
-        result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, text=True)
-        size_in_bytes = int(result.stdout.strip())
-        logger.info(f"Tamanho da pasta \produtos_funko: {size_in_bytes/1024:5.2f} MB")
